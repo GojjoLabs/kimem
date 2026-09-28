@@ -1,0 +1,6 @@
+<Label
+    id="title"
+    text="ሰላም ዓለም"
+    font="font:ethiopicFont"
+    translation="[100,100]"
+/>

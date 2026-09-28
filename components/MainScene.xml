@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="MainScene" extends="Scene">
+
+    <children>
+
+        <Label
+            id="amharicLabel"
+            text="ሰላም ዓለም"
+            translation="[200,200]"
+            width="1000"
+            height="100"
+            font="pkg:/fonts/NotoSansEthiopic.ttf" />
+
+    </children>
+
+</component>
