@@ -1,27 +1,37 @@
 '*************************************************************
-'** Hello World example 
-'** Copyright (c) 2015 Roku, Inc.  All rights reserved.
-'** Use of the Roku Platform is subject to the Roku SDK Licence Agreement:
-'** https://docs.roku.com/doc/developersdk/en-us
+' Roku SceneGraph Application
 '*************************************************************
 
 sub Main()
-    print "in showChannelSGScreen"
-    'Indicate this is a Roku SceneGraph application'
+
+    print "Starting ቅመም Roku application"
+
+    ' Create the SceneGraph screen
     screen = CreateObject("roSGScreen")
+
+    ' Create message port
     m.port = CreateObject("roMessagePort")
     screen.setMessagePort(m.port)
 
-    'Create a scene and load /components/helloworld.xml'
-    scene = screen.CreateScene("HelloWorld")
+    ' Load MainScene.xml
+    scene = screen.CreateScene("MainScene")
+
+    ' Show the application
     screen.show()
 
-    while(true)
-        msg = wait(0, m.port)
-        msgType = type(msg)
-        if msgType = "roSGScreenEvent"
-            if msg.isScreenClosed() then return
-        end if
-    end while
-end sub
+    ' Application event loop
+    while true
 
+        msg = wait(0, m.port)
+
+        if type(msg) = "roSGScreenEvent"
+
+            if msg.isScreenClosed()
+                return
+            end if
+
+        end if
+
+    end while
+
+end sub

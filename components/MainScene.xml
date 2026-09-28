@@ -3,36 +3,237 @@
 <component name="MainScene" extends="Scene">
 
     <children>
+
+        <!-- Background -->
+        <Rectangle
+            id="background"
+            width="1920"
+            height="1080"
+            color="0x101820FF" />
+
+        <!-- App Title -->
         <Label
-            id="amharicLabel" text="ሰላም ዓለም"
-            translation="[200,200]" width="1000" height="100">
-        <Font role="font" id="ethiopic-font" uri="pkg:/fonts/NotoSansEthiopic.ttf" size="24" />
+            id="appTitle"
+            text="ቅመም"
+            translation="[80,50]"
+            width="400"
+            height="80">
+
+            <Font
+                role="font"
+                uri="pkg:/fonts/NotoSansEthiopic.ttf"
+                size="42" />
+
         </Label>
 
+        <!-- Navigation Menu -->
+        <Group
+            id="menu"
+            translation="[60,160]">
+
+            <!-- Home -->
+            <Label
+                id="menuHome"
+                text="Home"
+                translation="[20,0]"
+                width="350"
+                height="70"
+                color="0xFFFFFFFF">
+
+                <Font
+                    role="font"
+                    uri="pkg:/fonts/NotoSansEthiopic.ttf"
+                    size="30" />
+
+            </Label>
+
+            <!-- Text -->
+            <Label
+                id="menuText"
+                text="ጽሑፍ"
+                translation="[20,80]"
+                width="350"
+                height="70"
+                color="0xFFFFFFFF">
+
+                <Font
+                    role="font"
+                    uri="pkg:/fonts/NotoSansEthiopic.ttf"
+                    size="30" />
+
+            </Label>
+
+            <!-- Vocabulary -->
+            <Label
+                id="menuVocabulary"
+                text="Vocabulary"
+                translation="[20,160]"
+                width="350"
+                height="70"
+                color="0xFFFFFFFF">
+
+                <Font
+                    role="font"
+                    uri="pkg:/fonts/NotoSansEthiopic.ttf"
+                    size="30" />
+
+            </Label>
+
+            <!-- Settings -->
+            <Label
+                id="menuSettings"
+                text="Settings"
+                translation="[20,240]"
+                width="350"
+                height="70"
+                color="0xFFFFFFFF">
+
+                <Font
+                    role="font"
+                    uri="pkg:/fonts/NotoSansEthiopic.ttf"
+                    size="30" />
+
+            </Label>
+
+        </Group>
+
+        <!-- Content Area -->
+        <Group
+            id="content"
+            translation="[500,180]">
+
+            <Label
+                id="amharicLabel"
+                text="ሰላም ዓለም"
+                translation="[0,0]"
+                width="1000"
+                height="100">
+
+                <Font
+                    role="font"
+                    uri="pkg:/fonts/NotoSansEthiopic.ttf"
+                    size="48" />
+
+            </Label>
+
+            <Label
+                id="contentDescription"
+                text="ወደ ቅመም እንኳን በደህና መጡ"
+                translation="[0,90]"
+                width="1000"
+                height="60">
+
+                <Font
+                    role="font"
+                    uri="pkg:/fonts/NotoSansEthiopic.ttf"
+                    size="28" />
+
+            </Label>
+
+        </Group>
+
     </children>
-<!-- BrightScript Portion -->
-<script type="text/brightscript" >
-<![CDATA[
-  '** 
-  '** Example: Edit a Label size and color with BrightScript
-  '**
 
-  function init()
-    m.top.setFocus(true)
-    m.myLabel = m.top.findNode("myLabel")
-    
-    'Set the font size
-    m.myLabel.font.size=92
+    <script type="text/brightscript">
+    <![CDATA[
 
-    'Set the color to light blue
-    m.myLabel.color="0x72D7EEFF"
+        function init()
 
-    '**
-    '** The full list of editable attributes can be located at:
-    '** http://sdkdocs.roku.com/display/sdkdoc/Label#Label-Fields
-    '**
-  end function
-]]>
-</script>
-<!-- End of BrightScript Portion -->
+            m.top.setFocus(true)
+
+            m.menu = m.top.findNode("menu")
+
+            m.menuItems = [
+                m.top.findNode("menuHome"),
+                m.top.findNode("menuText"),
+                m.top.findNode("menuVocabulary"),
+                m.top.findNode("menuSettings")
+            ]
+
+            m.selectedItem = 0
+
+            updateMenu()
+
+        end function
+
+
+        function updateMenu()
+
+            for i = 0 to m.menuItems.count() - 1
+
+                if i = m.selectedItem
+                    m.menuItems[i].color = "0x72D7EEFF"
+                else
+                    m.menuItems[i].color = "0xFFFFFFFF"
+                end if
+
+            end for
+
+        end function
+
+
+        function onKeyEvent(key as String, press as Boolean) as Boolean
+
+            if not press
+                return false
+            end if
+
+            if key = "up"
+
+                if m.selectedItem > 0
+                    m.selectedItem--
+                    updateMenu()
+                end if
+
+                return true
+
+            else if key = "down"
+
+                if m.selectedItem < m.menuItems.count() - 1
+                    m.selectedItem++
+                    updateMenu()
+                end if
+
+                return true
+
+            else if key = "OK"
+
+                selectMenuItem()
+
+                return true
+
+            end if
+
+            return false
+
+        end function
+
+
+        function selectMenuItem()
+
+            item = m.selectedItem
+
+            if item = 0
+
+                print "Home selected"
+
+            else if item = 1
+
+                print "Text selected"
+
+            else if item = 2
+
+                print "Vocabulary selected"
+
+            else if item = 3
+
+                print "Settings selected"
+
+            end if
+
+        end function
+
+    ]]>
+    </script>
+
 </component>
